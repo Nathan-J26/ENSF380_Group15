@@ -1,6 +1,7 @@
 package edu.ucalgary.oop;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DisasterVictim {
     private String firstName;
@@ -16,24 +17,34 @@ public class DisasterVictim {
     private static int counter = 0;
     
     public DisasterVictim(String firstName, String ENTRY_DATE) {
-        this.firstName = firstName;
-        this.ENTRY_DATE = ENTRY_DATE;
-        this.familyConnections = new ArrayList<FamilyRelation>();
-        this.medicalRecords = new ArrayList<MedicalRecord>();
-        this.personalBelongings = new ArrayList<Supply>();
-        this.ASSIGNED_SOCIAL_ID = generateSocialID();
-        counter++;
+        if(!isValidDateFormat(ENTRY_DATE)) {
+            throw new IllegalArgumentException("Invalid date format: " + ENTRY_DATE);
+        }
+        else {
+            this.firstName = firstName;
+            this.ENTRY_DATE = ENTRY_DATE;
+            this.familyConnections = new ArrayList<FamilyRelation>();
+            this.medicalRecords = new ArrayList<MedicalRecord>();
+            this.personalBelongings = new ArrayList<Supply>();
+            this.ASSIGNED_SOCIAL_ID = generateSocialID();
+            counter++;
+        }
     }
 
     public DisasterVictim(String firstName, String ENTRY_DATE, String dateOfBirth) {
-        this.firstName = firstName;
-        this.ENTRY_DATE = ENTRY_DATE;
-        this.setDateOfBirth(dateOfBirth);
-        this.familyConnections = new ArrayList<FamilyRelation>();
-        this.medicalRecords = new ArrayList<MedicalRecord>();
-        this.personalBelongings = new ArrayList<Supply>();
-        this.ASSIGNED_SOCIAL_ID = generateSocialID();
-        counter++;
+        if(!isValidDateFormat(ENTRY_DATE)) {
+            throw new IllegalArgumentException("Invalid date format: " + ENTRY_DATE);
+        }
+        else {
+            this.firstName = firstName;
+            this.ENTRY_DATE = ENTRY_DATE;
+            this.setDateOfBirth(dateOfBirth);
+            this.familyConnections = new ArrayList<FamilyRelation>();
+            this.medicalRecords = new ArrayList<MedicalRecord>();
+            this.personalBelongings = new ArrayList<Supply>();
+            this.ASSIGNED_SOCIAL_ID = generateSocialID();
+            counter++;
+        }
     }
 
     public String getFirstName() {
@@ -77,7 +88,7 @@ public class DisasterVictim {
         return this.ASSIGNED_SOCIAL_ID;
     }
     
-    public FamilyRelation[] getFamilyRelations() {
+    public FamilyRelation[] getFamilyConnections() {
         return this.familyConnections.toArray(new FamilyRelation[0]);
     }
 
@@ -89,16 +100,22 @@ public class DisasterVictim {
         return this.personalBelongings.toArray(new Supply[0]);
     }
 
-    public void setFamilyConnections(ArrayList<FamilyRelation> connections) {
-        this.familyConnections = connections;
+    public void setFamilyConnections(FamilyRelation[] connections) {
+        ArrayList<FamilyRelation> test = new ArrayList<FamilyRelation>(Arrays.asList(connections));
+
+        this.familyConnections = test;
     }
 
-    public void setMedicalRecords(ArrayList<MedicalRecord> records) {
-        this.medicalRecords = records;
+    public void setMedicalRecords(MedicalRecord[] records) {
+        ArrayList<MedicalRecord> test = new ArrayList<MedicalRecord>(Arrays.asList(records));
+
+        this.medicalRecords = test;
     }
 
-    public void setPersonalBelongings(ArrayList<Supply> belongings) {
-        this.personalBelongings = belongings;
+    public void setPersonalBelongings(Supply[] belongings) {
+        ArrayList<Supply> test = new ArrayList<Supply>(Arrays.asList(belongings));
+
+        this.personalBelongings = test;
     }
     
     public void addPersonalBelonging(Supply supply) {
