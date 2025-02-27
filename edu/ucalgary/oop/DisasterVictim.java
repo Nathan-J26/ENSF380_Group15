@@ -74,12 +74,12 @@ public class DisasterVictim {
                 this.dateOfBirth = dateOfBirth;
             }
             else {
-                // if dateOfBirth is after ENTRY_DATE throw exception
+                // if dateOfBirth is after ENTRY_DATE throw IllegalArgumentException
                 throw new IllegalArgumentException("Invalid birthdate: " + dateOfBirth + " - birthday cannot be after entry date");
             }
         }
         else {
-            // if date format is not valid
+            // if date format is not valid, throw IllegalArgumentException
             throw new IllegalArgumentException("Invalid date format: " + dateOfBirth);
         }
     }
@@ -89,33 +89,36 @@ public class DisasterVictim {
     }
     
     public FamilyRelation[] getFamilyConnections() {
+        // converts to an array before returning
         return this.familyConnections.toArray(new FamilyRelation[0]);
     }
 
     public MedicalRecord[] getMedicalRecords() {
+        // converts to an array before returning
         return this.medicalRecords.toArray(new MedicalRecord[0]);
     }
 
     public Supply[] getPersonalBelongings() {
+        // converts to an array before returning
         return this.personalBelongings.toArray(new Supply[0]);
     }
 
     public void setFamilyConnections(FamilyRelation[] connections) {
-        ArrayList<FamilyRelation> test = new ArrayList<FamilyRelation>(Arrays.asList(connections));
-
-        this.familyConnections = test;
+        // converts the input argument "connections" into an ArrayList so that it functions with the class
+        ArrayList<FamilyRelation> convertedConnections = new ArrayList<FamilyRelation>(Arrays.asList(connections));
+        this.familyConnections = convertedConnections;
     }
 
     public void setMedicalRecords(MedicalRecord[] records) {
-        ArrayList<MedicalRecord> test = new ArrayList<MedicalRecord>(Arrays.asList(records));
-
-        this.medicalRecords = test;
+        // converts the input argument "records" into an ArrayList so that it functions with the class
+        ArrayList<MedicalRecord> convertedRecords = new ArrayList<MedicalRecord>(Arrays.asList(records));
+        this.medicalRecords = convertedRecords;
     }
 
     public void setPersonalBelongings(Supply[] belongings) {
-        ArrayList<Supply> test = new ArrayList<Supply>(Arrays.asList(belongings));
-
-        this.personalBelongings = test;
+        // converts the input argument "belongings" into an ArrayList so that it functions with the class
+        ArrayList<Supply> convertedBelongings = new ArrayList<Supply>(Arrays.asList(belongings));
+        this.personalBelongings = convertedBelongings;
     }
     
     public void addPersonalBelonging(Supply supply) {
@@ -159,14 +162,15 @@ public class DisasterVictim {
     }
 
     public void setGender(String gender) {
-        String[] validGenderInput = {"male", "female", "other", "prefer not to say"};
-        for(int i = 0; i < 4; i++) {
-            if(validGenderInput[i].equalsIgnoreCase(gender)) {
-                this.gender = gender;
+        String[] validGenderInput = {"male", "female", "other", "prefer not to say"}; // list of genders that will be allowed by the class
+        for(int i = 0; i < 4; i++) { // iterate through the list
+            if(validGenderInput[i].equalsIgnoreCase(gender)) { // check if the inputted gender matches any of the valid genders
+                this.gender = gender; // set the gender and exit
                 return;
             }
         }
-        throw new IllegalArgumentException("Invalid gender: " + gender);
+        throw new IllegalArgumentException("Invalid gender: " + gender); 
+        // if the gender is not in the list of valid genders, throw IllegalArgumentException
     }
 
     private static boolean isValidDateFormat(String date) {
